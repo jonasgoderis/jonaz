@@ -28,15 +28,15 @@ configuration.load do
 	set :stages, ["development", "staging", "production"]
 	set :default_stage, "development"
 
-	# Do a deploy rollback before the wijs rollback
-	after 'wijs:rollback', 'deploy:rollback'
-	after 'deploy:rollback', 'wijs:symlink_root'
+	# Do a deploy rollback before the jonasgoderis rollback
+	after 'jonasgoderis:rollback', 'deploy:rollback'
+	after 'deploy:rollback', 'jonasgoderis:symlink_root'
 
 	# This will allow us to install the delta files at the end of the deploy.
 	after 'deploy:cleanup' do
 		forkcms.clear_cached
-		wijs.symlink_root
-		wijs.create_git_tag
+		jonasgoderis.symlink_root
+		jonasgoderis.create_git_tag
 	end
 
 	# Always cleanup after you're done.
@@ -49,7 +49,7 @@ configuration.load do
 		transaction do
 			forkcms.link_files
 			forkcms.link_config
-			wijs.migrate
+			jonasgoderis.migrate
 		end
 	end
 
@@ -73,8 +73,8 @@ configuration.load do
 	# We're on a share setup so group_writable isn't allowed.
 	set :group_writable, false
 
-	# The functionallity for 'wijs' websites.
-	namespace :wijs do
+	# The functionallity for 'jonasgoderis' websites.
+	namespace :jonasgoderis do
 
 		desc 'Create a git tag with a certain format.'
 		task :create_git_tag do
@@ -107,7 +107,7 @@ configuration.load do
 					run("echo #{dirname} | tee -a #{shared_path}/#{executed_delta_scripts}")
 				end
 			else
-				wijs.install_delta_files
+				jonasgoderis.install_delta_files
 			end
 		end
 
@@ -118,7 +118,7 @@ configuration.load do
 			pretty_message("looking for new delta files")
 
 			# There was an error, do a rollback!
-			on_rollback { wijs.rollback }
+			on_rollback { jonasgoderis.rollback }
 
 			# Fetch the basic delta folder data.
 			folders = Array.new
@@ -146,7 +146,7 @@ configuration.load do
 					# There are delta files. This could take a while and there could be
 					# database changes. Because of that, we want to show a proper maintenance
 					# page to the visitors.
-					wijs.symlink_maintenance
+					jonasgoderis.symlink_maintenance
 
 					forkcms.backup_database
 
@@ -206,7 +206,7 @@ configuration.load do
 			run("rm -rf #{document_root} && ln -sf #{current_path} #{document_root}")
 		end
 
-		# Do custom wijs rollback stuff.
+		# Do custom jonasgoderis rollback stuff.
 		desc 'This will rollback our application to a previous state.'
 		task :rollback do
 			pretty_error("error occured, rolling back")
