@@ -18,7 +18,7 @@ end
 
 # Our git repository.
 # Fill in your git repository. This should be automated though.
-set :repository, "git@github.ncube.be:wijs/.git"
+set :repository, "git@github-personal:jonasgoderis/jonaz.git"
 
 # Overwrite some defaults because this isn't a Rails app.
 namespace :deploy do
