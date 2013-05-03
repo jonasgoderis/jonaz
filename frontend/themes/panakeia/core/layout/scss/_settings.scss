@@ -1,0 +1,71 @@
+// ------------------------------
+// Settings and variables
+// ------------------------------
+
+// Base unit
+// ------------------------------
+$base                           : 6px;
+
+// Typography
+
+$serif                         : "DroidSerif", georgia, serif;
+$sans                          : "PTSans", arial, sans-serif;
+$basefont                      : $serif;
+$basefontsize                  : 16;
+$importantnumber               : 30;
+$basefontweight                : 400;
+$baselineheight                : 1.5;
+$baseheadingfont               : $sans;
+$baseheadingfontweight         : 700;
+
+// Breakpoints calculated in em's
+// ------------------------------
+$palm                          : #{480 / $basefontsize}em;
+$lap                           : #{680 / $basefontsize}em;
+$desk                          : #{960 / $basefontsize}em;
+
+// Roundness
+// ------------------------------
+$radius                        : 3px;
+
+// Optional theme colors
+// ------------------------------
+$warm                          : #ed645b;
+$cold                          : #69bfb1;
+$neutral                       : #66665c;
+
+// Warm colors
+// ------------------------------
+$warmcolor                     : $warm;
+$warmcolor--dark               : scale-saturation(darken($warmcolor, 10%), -20%);
+$warmcolor--light              : scale-lightness($warmcolor, 70%);;
+$warmcolor--lightest           : scale-saturation(scale-lightness($warmcolor, 85%), -85%);
+
+// Cold colors
+// ------------------------------
+$coldcolor                     : $cold;
+$coldcolor--dark               : scale-saturation(darken($coldcolor, 10%), -20%);
+$coldcolor--light              : scale-lightness($coldcolor, 70%);;
+$coldcolor--lightest           : scale-saturation(scale-lightness($coldcolor, 85%), -85%);
+
+// Neutral colors
+// ------------------------------
+$neutralcolor                     : $neutral;
+$neutralcolor--dark               : scale-saturation(darken($neutralcolor, 10%), -20%);
+$neutralcolor--light              : scale-lightness($neutralcolor, 70%);;
+$neutralcolor--lightest           : scale-saturation(scale-lightness($neutralcolor, 85%), -85%);
+
+// Standard colors
+// ------------------------------
+$whitecolor                    : #fff;
+$darkcolor                     : #4b4b53;
+$mediumcolor                   : scale-lightness($darkcolor, 40%);
+$lightcolor                    : scale-lightness($darkcolor, 90%);
+$lightestcolor                 : scale-lightness($darkcolor, 95%);
+
+// Links
+// ------------------------------
+$linkcolor                     : #4b4b53;
+$linkcolorhover                : darken($linkcolor, 10);
+$linkcolorfocus                : darken($linkcolor, 10);
+$linkcolorvisited              : darken($linkcolor, 5);

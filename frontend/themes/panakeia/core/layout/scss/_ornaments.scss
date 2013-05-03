@@ -1,0 +1,96 @@
+// $Logo
+.logo {
+  display: block;
+}
+
+.monogram {
+  display: block;
+  width: 120px;
+  height: 100px;
+  font-size: 34px;
+  line-height: 3em;
+  position: relative;
+  margin: 0 auto;
+  color: $whitecolor;
+  @include margin-bottom(0.2);
+  &:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    .warm & {
+      border: 1px solid $warmcolor--light;
+    }
+    .cold & {
+      border: 1px solid $coldcolor--light;
+    }
+    .neutral & {
+      border: 1px solid $neutralcolor--light;
+    }
+    @include rotate(45deg);
+    position: relative;
+    top: -2.4em;
+  }
+}
+
+.monogramNeg {
+  display: block;
+  width: 120px;
+  height: 100px;
+  z-index: 10;
+  font-size: 34px;
+  line-height: 3em;
+  position: relative;
+  margin: 0 auto;
+  color: $whitecolor;
+  @include margin-bottom(0.2);
+  &:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    .warm & {
+      border: 1px solid $warmcolor;
+      background-color: $warmcolor;
+    }
+    .cold & {
+      border: 1px solid $coldcolor;
+      background-color: $coldcolor;
+    }
+    .neutral & {
+      border: 1px solid $neutralcolor;
+      background-color: $neutralcolor;
+    }
+    @include rotate(45deg);
+    position: relative;
+    z-index: -5;
+    top: -2.4em;
+  }
+  &:visited {
+    color: $whitecolor;
+  }
+}
+
+.logotype {
+  color: $whitecolor;
+}
+
+// $Time
+.date {
+  @extend .h4;
+  font-family: $sans;
+  color: $mediumcolor;
+  @include margin-bottom(0.5);
+}
+
+.month, .year {
+  &:before {
+    content: "/";
+    position: relative;
+    left: -2px;
+    bottom: 1px;
+    color: scale-lightness($mediumcolor, 50%);
+  }
+}

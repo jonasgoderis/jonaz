@@ -1,0 +1,75 @@
+// Faq
+.faq {
+  @include padding(1,1,0,1);
+  h2 {
+    color: $darkcolor;
+    padding-top: 0;
+    @include transition(color 0.3s ease-in-out);
+  }
+  &:hover, &:focus {
+    a h2 {
+      .warm & {
+        color: $warmcolor;
+      }
+      .cold & {
+        color: $coldcolor;
+      }
+      .neutral & {
+        color: $neutralcolor;
+      }
+    }
+  }
+}
+
+.faqCategories {
+  @include padding(1,1,0,1);
+  h2 {
+    color: $darkcolor;
+    padding-top: 0;
+  }
+  &:hover, &:focus {
+    a h2 {
+      .warm & {
+        color: $warmcolor;
+      }
+      .cold & {
+        color: $coldcolor;
+      }
+      .neutral & {
+        color: $neutralcolor;
+      }
+    }
+  }
+}
+
+.faqList {
+  a {
+    @extend .textlink;
+    @extend .textlinkBorder;
+  }
+  margin-bottom: 0;
+  li {
+    font-family: $sans;
+    font-style: normal;
+    border-bottom: 1px solid $lightcolor;
+    @include padding-bottom(0.5);
+    &:last-child {
+      border-bottom: none;
+    }
+    &:before {
+      content: none;
+    }
+  }
+}
+
+.faqCategory {
+  @extend .h4;
+  font-family: $sans;
+  font-style: normal;
+  color: $mediumcolor;
+  @include padding-bottom(1);
+  a {
+    @extend .textlink;
+    @extend .textlinkBorder;
+  }
+}

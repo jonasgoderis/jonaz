@@ -1,0 +1,207 @@
+// $Summary
+.summary {
+  @include padding(1);
+  @include margin-bottom(1);
+  .warm & {
+    border: 1px solid $warmcolor--lightest;
+  }
+  .cold & {
+    border: 1px solid $coldcolor--lightest;
+  }
+  .neutral & {
+    border: 1px solid $neutralcolor--lightest;
+  }
+  background-color: $whitecolor;
+  @include transition(box-shadow 0.3s ease-in-out);
+  h1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: $darkcolor;
+    @include transition(color 0.3s ease-in-out);
+  }
+  &:hover, &:focus {
+    @include box-shadow(0px 0px 18px scale-lightness($mediumcolor, 60%));
+    h1 {
+      .warm & {
+        color: $warmcolor;
+      }
+      .cold & {
+        color: $coldcolor;
+      }
+      .neutral & {
+        color: $neutralcolor;
+      }
+    }
+  }
+}
+
+.summaryContent {
+  display: block;
+}
+
+.summaryContentText {
+  @include breakpoint(lap) {
+    height: 22em;
+    overflow: hidden;
+  }
+  @include breakpoint(desk) {
+    height: 28em;
+    overflow: hidden;
+  }
+}
+
+.summaryFooter {
+  h4.textlink {
+    @include padding-bottom(0.5);
+    border-bottom: 1px solid $lightcolor;
+  }
+}
+
+// $Blogcontent
+.blogDetail {
+  background-color: $whitecolor;
+  @include margin-bottom(1);
+  @include padding(2,1,2,1);
+  p:first-child {
+    @extend .lead;
+  }
+  h4.textlink {
+    @include padding-bottom(0.5);
+    border-bottom: 1px solid $lightcolor;
+  }
+}
+
+.blogDetailTitle {
+  h1 {
+    @include margin-bottom(0.2);
+  }
+  text-align: center;
+  @include margin-bottom(1.5);
+
+}
+
+.blogDetailImage {
+  width: 100%;
+  @include padding-bottom(2);
+}
+
+// $Pagenumbers
+.pagenumbers, .more {
+  text-align: center;
+  li {
+    list-style: none;
+    display: inline;
+    font-style: normal;
+    &:before {
+      content: "";
+    }
+  }
+  a {
+    @extend .btn;
+  }
+}
+
+.pagenumbers {
+  @include margin-tb(0.5,1.5);
+  li {
+    @include margin-lr(0.1, 0.1);
+  }
+  a {
+    @extend .btnNumber;
+  }
+  span {
+    @extend .btn;
+    @extend .btnNumberInactive;
+  }
+}
+
+.more {
+  @include margin-tb(1,1.5);
+  a {
+    @extend .btnMore;
+  }
+}
+
+.pageNavigation {
+  text-align: center;
+  @include clearfix;
+  @extend .row;
+  @include margin-bottom(1.5);
+  span {
+    font-weight: 700;
+  }
+  a {
+    display: block;
+    @extend .btnPage;
+    font-family: $sans;
+  }
+}
+
+// $Comments
+.comments {
+  background-color: $whitecolor;
+}
+
+.comment {
+  @include padding-top(1);
+  @include margin-top(1);
+  border-top: 1px solid $lightcolor;
+  p {
+    @include margin-bottom(1);
+    color: $mediumcolor;
+  }
+  a {
+    @extend .textlink;
+    @extend .textlinkBorder;
+  }
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+.commentAuthor {
+  font-family: $sans;
+  @include adjust-fontsize(16,16);
+}
+
+// $CommentsForm
+.commentsForm {
+  .warm & {
+     background-color: $warmcolor;
+  }
+  .cold & {
+     background-color: $coldcolor;
+  }
+  .neutral & {
+     background-color: $neutralcolor;
+  }
+  h3 {
+    color: $whitecolor;
+    .warm & {
+      border-bottom: 1px solid scale-lightness($warmcolor, 25%);
+    }
+    .cold & {
+      border-bottom: 1px solid scale-lightness($coldcolor, 25%);
+    }
+    .neutral & {
+      border-bottom: 1px solid scale-lightness($neutralcolor, 25%);
+    }
+  }
+  p {
+    .warm & {
+      color: $warmcolor--lightest;
+    }
+    .cold & {
+      color: $coldcolor--lightest;
+    }
+    .neutral & {
+      color: $neutralcolor--lightest;
+    }
+  }
+  abbr {
+    color: $whitecolor;
+    border-bottom: none;
+  }
+}

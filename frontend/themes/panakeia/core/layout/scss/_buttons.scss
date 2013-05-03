@@ -1,0 +1,399 @@
+// --------------------------------------
+// Links
+// --------------------------------------
+.textlink, .textlink a {
+  .warm & {
+    color: $warmcolor;
+  }
+  .cold & {
+    color: $coldcolor;
+  }
+  .neutral & {
+    color: $neutralcolor;
+  }
+  &:visited {
+    .warm & {
+      color: $warmcolor;
+    }
+    .cold & {
+      color: $coldcolor;
+    }
+    .neutral & {
+      color: $neutralcolor;
+    }
+  }
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--dark;
+    }
+    .cold & {
+      color: $coldcolor--dark;
+    }
+    .neutral & {
+      color: $neutralcolor--dark;
+    }
+  }
+}
+
+.textlinkBorder, .textlinkBorder a {
+  &:hover, &:focus {
+    .warm & {
+      border-bottom: 1px dotted $warmcolor--light;
+    }
+    .cold & {
+      border-bottom: 1px dotted $coldcolor--light;
+    }
+    .neutral & {
+      border-bottom: 1px dotted $neutralcolor--light;
+    }
+  }
+}
+
+.meta {
+  display: inline;
+  color: $mediumcolor;
+}
+
+.category, .category a {
+  .warm & {
+    color: $warmcolor;
+  }
+  .cold & {
+    color: $coldcolor;
+   }
+  .neutral & {
+    color: $neutralcolor;
+  }
+  font-family: $sans;
+  &:visited {
+    .warm & {
+      color: $warmcolor;
+    }
+    .cold & {
+      color: $coldcolor;
+    }
+    .neutral & {
+      color: $neutralcolor;
+    }
+  }
+  &:hover, &:focus {
+    &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--dark;
+      border-bottom: 1px dotted $warmcolor--light;
+    }
+    .cold & {
+      color: $coldcolor--dark;
+      border-bottom: 1px dotted $coldcolor--light;
+    }
+    .neutral & {
+      color: $neutralcolor--dark;
+      border-bottom: 1px dotted $neutralcolor--light;
+    }
+  }
+  }
+}
+
+// --------------------------------------
+// Buttons
+// --------------------------------------
+.btn {
+  font-family: $sans;
+  @include padding-lr(0.5,0.5);
+}
+
+.navBtn {
+  display: block;
+  @include adjust-fontsize(16, 18);
+  color: $mediumcolor;
+  @include padding-tb(0.5,0.5);
+  border-top: 1px solid $lightestcolor;
+  @include breakpoint(lap) {
+    border: none;
+    @include margin-lr(0.1,0.1);
+  }
+  &:visited {
+    color: $mediumcolor;
+  }
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor;
+    }
+    .cold & {
+      color: $coldcolor;
+    }
+    .neutral & {
+      color: $neutralcolor;
+    }
+  }
+  .selected &  {
+    font-weight: 700;
+  }
+}
+
+
+.toggleBtn {
+  display: block;
+  @include adjust-fontsize(16, 18);
+  color: $mediumcolor;
+  font-weight: 700;
+  @include padding-tb(0.7,0.55);
+  &:visited {
+    color: $mediumcolor;
+  }
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor;
+    }
+    .cold & {
+      color: $coldcolor;
+    }
+    .neutral & {
+      color: $neutralcolor;
+    }
+  }
+}
+
+.categoryBtn {
+  padding: $base/2 $base;
+  margin: 2px;
+  border-radius: $base/2;
+  display: inline;
+  .warm & {
+      color: $warmcolor--light;
+      background-color: scale-lightness($warmcolor, -5%);
+    }
+  .cold & {
+    color: $coldcolor--light;
+    background-color: scale-lightness($coldcolor, -5%);
+  }
+  .neutral & {
+    color: $neutralcolor--light;
+    background-color: scale-lightness($neutralcolor, -5%);
+  }
+  @include transition(background-color 0.3s ease-in-out);
+  &:hover, &:focus {
+    color: $whitecolor;
+    .warm & {
+      background-color: scale-lightness($warmcolor, -5%);
+    }
+    .cold & {
+      background-color: scale-lightness($coldcolor, -5%);
+    }
+    .neutral & {
+      background-color: scale-lightness($neutralcolor, -5%);
+    }
+  }
+  .isActive & {
+    font-weight: 700;
+    .warm & {
+      color: $warmcolor--lightest;
+      background-color: scale-lightness($warmcolor, -8%);
+    }
+    .cold & {
+      color: $coldcolor--lightest;
+      background-color: scale-lightness($coldcolor, -8%);
+    }
+    .neutral & {
+      color: $neutralcolor--lightest;
+      background-color: scale-lightness($neutralcolor, -8%);
+    }
+  }
+}
+
+.btnMore {
+  @include adjust-fontsize(16, 21);
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  color: $whitecolor;
+  .warm & {
+    background-color: $warmcolor;
+  }
+  .cold & {
+    background-color: $coldcolor;
+  }
+  .neutral & {
+    background-color: $neutralcolor;
+  }
+  @include transition(background-color 0.3s ease-in-out);
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--lightest;
+      background-color: scale-saturation(darken($warmcolor, 5%), -10%);
+    }
+    .cold & {
+      color: $coldcolor--lightest;
+      background-color: scale-saturation(darken($coldcolor, 5%), -10%);
+    }
+    .neutral & {
+      color: $neutralcolor--lightest;
+      background-color: scale-saturation(darken($neutralcolor, 5%), -10%);
+    }
+  }
+}
+
+.btnNumber {
+  @include adjust-fontsize(16, 18);
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  color: $whitecolor;
+  .warm & {
+    background-color: $warmcolor;
+  }
+  .cold & {
+    background-color: $coldcolor;
+  }
+  .neutral & {
+    background-color: $neutralcolor;
+  }
+  @include transition(background-color 0.3s ease-in-out);
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--lightest;
+      background-color: scale-saturation(darken($warmcolor, 5%), -10%);
+    }
+    .cold & {
+      color: $coldcolor--lightest;
+      background-color: scale-saturation(darken($coldcolor, 5%), -10%);
+    }
+    .neutral & {
+      color: $neutralcolor--lightest;
+      background-color: scale-saturation(darken($neutralcolor, 5%), -10%);
+    }
+  }
+}
+
+.btnNumberInactive {
+  cursor: default;
+  @include adjust-fontsize(16, 18);
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  .warm & {
+    color: $warmcolor;
+  }
+  .cold & {
+    color: $coldcolor;
+  }
+  .neutral & {
+    color: $neutralcolor;
+  }
+  background-color: $whitecolor;
+  @include transition(background-color 0.3s ease-in-out);
+}
+
+.btnPage {
+  @include padding(1,0.2,1,0.2);
+  color: $mediumcolor;
+  @include adjust-fontsize(16, 18);
+  background-color: $whitecolor;
+  @include transition(box-shadow 0.3s ease-in-out);
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor;
+    }
+    .cold & {
+      color: $coldcolor;
+    }
+    .neutral & {
+      color: $neutralcolor;
+    }
+    @include box-shadow(0px 0px 18px scale-lightness($mediumcolor, 70%));
+  }
+}
+
+.btnSearch {
+  cursor: pointer;
+  @include adjust-fontsize(16, 18);
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  color: $mediumcolor;
+  border: none;
+  .warm & {
+    background-color: $warmcolor--lightest;
+  }
+  .cold & {
+    background-color: $coldcolor--lightest;
+  }
+  .neutral & {
+    background-color: $neutralcolor--lightest;
+  }
+  &:hover, &:focus {
+    color: darken($mediumcolor, 20%);
+  }
+}
+
+.btnSubmit {
+  font-size: 18px;
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  .warm & {
+    color: $warmcolor;
+  }
+  .cold & {
+    color: $coldcolor;
+  }
+  .neutral & {
+    color: $neutralcolor;
+  }
+  border: none;
+  border-radius: 0;
+  background-color: $whitecolor;
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--dark;
+    }
+    .cold & {
+      color: $coldcolor--dark;
+    }
+    .neutral & {
+      color: $neutralcolor--dark;
+    }
+  }
+}
+
+.btnSubmitNeg {
+  font-size: 18px;
+  @include padding(0.5, 0.5, 0.5, 0.5);
+  color: $whitecolor;
+  border: none;
+  border-radius: 0;
+  .warm & {
+    background-color: $warmcolor;
+  }
+  .cold & {
+    background-color: $coldcolor;
+  }
+  .neutral & {
+    background-color: $neutralcolor;
+  }
+  &:hover, &:focus {
+    .warm & {
+      color: $warmcolor--lightest;
+      background-color: $warmcolor--dark;
+    }
+    .cold & {
+      color: $coldcolor--lightest;
+      background-color: $coldcolor--dark;
+    }
+    .neutral & {
+      color: $neutralcolor--lightest;
+      background-color: $neutralcolor--dark;
+    }
+  }
+}
+
+.shareButtons {
+  li {
+    list-style: none;
+    @include inline-block;
+    @include margin-right(0.3);
+    &:before {
+      content: "";
+    }
+  }
+  .facebook {
+    @include margin-right(0.5);
+    position: relative;
+    top: -4px;
+  }
+  .fb-like {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+  }
+}

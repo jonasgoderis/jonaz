@@ -1,0 +1,71 @@
+// $Title
+.pageTitle {
+  display: block;
+  text-align: center;
+  .warm & {
+    color: $warmcolor;
+  }
+  .cold & {
+    color: $coldcolor;
+  }
+  .neutral & {
+    color: $neutralcolor;
+  }
+  @include margin-bottom(1);
+  @include breakpoint(lap) {
+    @include padding-top(3.1);
+  }
+}
+
+// $Hero
+.hero {
+  @include padding(1,1,0,1);
+  .warm & {
+    background-color: $warmcolor;
+  }
+  .cold & {
+    background-color: $coldcolor;
+  }
+  .neutral & {
+    background-color: $neutralcolor;
+  }
+  color: $whitecolor;
+  text-align: center;
+  p {
+    @include margin-top (1.5);
+    @extend .lead;
+    .warm & {
+      color: scale-saturation(scale-lightness($warmcolor, 75%), -40%);
+    }
+    .cold & {
+      color: scale-saturation(scale-lightness($coldcolor, 75%), -40%);
+    }
+    .neutral & {
+      color: scale-saturation(scale-lightness($neutralcolor, 75%), -40%);
+    }
+  }
+  @include breakpoint(lap) {
+    @include padding-top(1.5);
+    @include top(2.6);
+    position: fixed;
+    height: 29.1em;
+  }
+}
+
+// $Main
+.article {
+  background-color: $whitecolor;
+  @include margin-bottom(1);
+}
+
+.articleContent {
+  @include padding-lr(1);
+  @include padding-top(2);
+}
+
+.plain {
+  a {
+    @extend .textlink;
+    @extend .textlinkBorder;
+  }
+}

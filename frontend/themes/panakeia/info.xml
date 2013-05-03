@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+	<name>panakeia</name>
+	<version>1.0.0</version>
+	<requirements>
+		<minimum_version>3.0.0</minimum_version>
+	</requirements>
+	<thumbnail>thumbnail.png</thumbnail>
+	<description>
+		<![CDATA[
+			In Greek mythology, Panacea (Greek Πανάκεια, Panakeia) was a goddess of Universal remedy. She was said to have a poultice or potion with which she healed the sick, a substance meant to cure all diseases.
+		]]>
+	</description>
+	<authors>
+		<author>
+			<name>Dieter Peirs</name>
+			<url>http://www.dieterpeirs.com</url>
+		</author>
+	</authors>
+	<metanavigation supported="false" />
+	<templates>
+
+		<template label="Default (warm)" path="core/layout/templates/default_warm.tpl">
+			<positions>
+				<position name="main" />
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,/,/,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+		<template label="Home (warm)" path="core/layout/templates/home_warm.tpl">
+			<positions>
+				<position name="top" />
+				<position name="main">
+					<defaults>
+						<widget module="blog" action="recent_articles_full" />
+					</defaults>
+				</position>
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,top,top,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+		<template label="Default (cold)" path="core/layout/templates/default_cold.tpl">
+			<positions>
+				<position name="main" />
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,/,/,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+		<template label="Home (cold)" path="core/layout/templates/home_cold.tpl">
+			<positions>
+				<position name="top" />
+				<position name="main">
+					<defaults>
+						<widget module="blog" action="recent_articles_full" />
+					</defaults>
+				</position>
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,top,top,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+		<template label="Default (neutral)" path="core/layout/templates/default_neutral.tpl">
+			<positions>
+				<position name="main" />
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,/,/,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+		<template label="Home (neutral)" path="core/layout/templates/home_neutral.tpl">
+			<positions>
+				<position name="top" />
+				<position name="main">
+					<defaults>
+						<widget module="blog" action="recent_articles_full" />
+					</defaults>
+				</position>
+				<position name="search">
+					<defaults>
+						<widget module="search" action="form" />
+					</defaults>
+				</position>
+				<position name="leftfooter">
+					<defaults>
+						<widget module="blog" action="recent_comments" />
+					</defaults>
+				</position>
+				<position name="rightfooter" />
+				<position name="social" />
+			</positions>
+			<format>
+				[/,top,top,/],[main,main,main,main],[/,search,search,/],[leftfooter,leftfooter,rightfooter,social]
+			</format>
+		</template>
+
+	</templates>
+</theme>
