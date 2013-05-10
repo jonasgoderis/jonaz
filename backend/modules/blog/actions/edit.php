@@ -31,6 +31,7 @@ class BackendBlogEdit extends BackendBaseActionEdit
 	 * @var	BackendDataGrid
 	 */
 	private $dgDrafts;
+	private $dgImages;
 
 	/**
 	 * Is the image field allowed?
@@ -38,6 +39,17 @@ class BackendBlogEdit extends BackendBaseActionEdit
 	 * @var bool
 	 */
 	protected $imageIsAllowed = true;
+
+	/**
+	 * Create image for the datagrid
+	 *
+	 * @param  string $image
+	 * @return string
+	 */
+	public static function dataGridImage($image)
+	{
+		return '<img src="' . FRONTEND_FILES_URL . '/blog/images/64x64/' . urlencode($image) . '" width="64">';
+	}
 
 	/**
 	 * Execute the action
@@ -58,6 +70,7 @@ class BackendBlogEdit extends BackendBaseActionEdit
 
 			$this->getData();
 			$this->loadDrafts();
+			$this->loadImages();
 			$this->loadRevisions();
 			$this->loadForm();
 			$this->validateForm();
@@ -188,6 +201,30 @@ class BackendBlogEdit extends BackendBaseActionEdit
 	}
 
 	/**
+	 * Load the images datagrid
+	 */
+	protected function loadImages()
+	{
+		$this->dgImages = new BackendDatagridDB(
+			BackendBlogModel::QRY_DATAGRID_BROWSE_IMAGES, array($this->id)
+		);
+
+		$this->dgImages->enableSequenceByDragAndDrop();
+		$this->dgImages->addColumn(
+			'delete', null, BL::lbl('Delete'),
+			BackendModel::createURLForAction('delete_image') . '&amp;id=[id]'
+		);
+		$this->dgImages->setColumnFunction(
+			array('BackendBlogEdit', 'dataGridImage'), array('[image]'),
+			array('image')
+		);
+		$this->dgImages->setColumnConfirm('delete', BL::msg('ConfirmDeleteImage'));
+
+		$this->dgImages->setAttributes(array('data-action' => 'image_sequence'));
+	}
+
+
+	/**
 	 * Load the datagrid with revisions
 	 */
 	private function loadRevisions()
@@ -243,6 +280,7 @@ class BackendBlogEdit extends BackendBaseActionEdit
 		// assign revisions-datagrid
 		$this->tpl->assign('revisions', ($this->dgRevisions->getNumResults() != 0) ? $this->dgRevisions->getContent() : false);
 		$this->tpl->assign('drafts', ($this->dgDrafts->getNumResults() != 0) ? $this->dgDrafts->getContent() : false);
+		$this->tpl->assign('dgImages', ($this->dgImages->getNumResults() != 0) ? $this->dgImages->getContent() : false);
 
 		$this->tpl->assign('imageIsAllowed', $this->imageIsAllowed);
 

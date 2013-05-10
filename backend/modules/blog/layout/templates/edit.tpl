@@ -24,6 +24,7 @@
 	<div class="tabs">
 		<ul>
 			<li><a href="#tabContent">{$lblContent|ucfirst}</a></li>
+			<li><a href="#tabImages">{$lblImages|ucfirst}</a></li>
 			<li><a href="#tabVersions">{$lblVersions|ucfirst}</a></li>
 			<li><a href="#tabPermissions">{$lblComments|ucfirst}</a></li>
 			<li><a href="#tabSEO">{$lblSEO|ucfirst}</a></li>
@@ -150,6 +151,28 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+
+		<div id="tabImages">
+			<p style="float: right;">
+				<a href="{$var|geturl:'add_image'}&amp;post_id={$item.id}" class="button icon iconAdd addButton"><span>{$lblAddImage|ucfirst}</span></a>
+			</p>
+			<div class="tableHeading">
+				<div class="oneLiner">
+					<h3 class="oneLinerElement">{$lblImages|ucfirst}</h3>
+				</div>
+			</div>
+
+			{option:dgImages}
+				<div class="dataGridHolder">
+					{$dgImages}
+				</div>
+			{/option:dgImages}
+			{option:!dgImages}
+				<p>
+					{$msgNoImages}
+				</p>
+			{/option:!dgImages}
 		</div>
 
 		<div id="tabPermissions">

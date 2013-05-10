@@ -94,6 +94,12 @@ class BackendBlogModel
 		 WHERE i.status = ? AND i.id = ? AND i.language = ?
 		 ORDER BY i.edited_on DESC';
 
+	const QRY_DATAGRID_BROWSE_IMAGES =
+		'SELECT i.id, i.image, i.title, i.sequence
+		 FROM blog_images AS i
+		 WHERE i.post_id = ?
+		 ORDER BY i.sequence ASC';
+
 	/**
 	 * Checks the settings and optionally returns an array with warnings
 	 *
@@ -157,7 +163,18 @@ class BackendBlogModel
 		$db->delete('blog_comments', 'post_id IN (' . implode(', ', $idPlaceHolders) . ') AND language = ?', array_merge($ids, array(BL::getWorkingLanguage())));
 
 		// delete tags
-		foreach($ids as $id) BackendTagsModel::saveTags($id, '', 'blog');
+		foreach($ids as $id)
+		{
+			BackendTagsModel::saveTags($id, '', 'blog');
+
+			$images = (array) $db->getRecords(
+				'SELECT id FROM blog_images WHERE post_id = ?',
+				array($id)
+			);
+
+			foreach($images as $image) self::deleteImage($image['id']);
+		}
+
 
 		// invalidate the cache for blog
 		BackendModel::invalidateFrontendCache('blog', BL::getWorkingLanguage());
@@ -207,6 +224,30 @@ class BackendBlogModel
 			 LIMIT 1',
 			array((int) $id, BL::getWorkingLanguage(), 'active')
 		);
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public static function deleteImage($id)
+	{
+		$id = (int) $id;
+		$db = BackendModel::getContainer()->get('database');
+		$image = self::getImage($id);
+		$sizes = self::getImageSizes();
+
+		$imagesPath = FRONTEND_FILES_PATH . '/blog/images';
+
+		// delete source file
+		SpoonFile::delete($imagesPath . '/source/' . $image['image']);
+
+		// delete thumbs
+		foreach($sizes as $size)
+		{
+			SpoonFile::delete($imagesPath . '/' . $size['name'] . '/' . $image['image']);
+		}
+
+		$db->delete('blog_images', 'id = ?', array($id));
 	}
 
 	/**
@@ -318,6 +359,18 @@ class BackendBlogModel
 			 WHERE i.id = ? AND i.language = ?
 			 LIMIT 1',
 			array((int) $id, BL::getWorkingLanguage())
+		);
+	}
+
+	/**
+	 * @param int $id
+	 * @return bool
+	 */
+	public static function existsImage($id)
+	{
+		return (bool) BackendModel::getContainer()->get('database')->getVar(
+			'SELECT 1 FROM blog_images WHERE id = ? LIMIT 1',
+			array((int) $id)
 		);
 	}
 
@@ -526,6 +579,73 @@ class BackendBlogModel
 	}
 
 	/**
+	 * Get the blog id for a revision
+	 *
+	 * @param int $revisionId
+	 * @return int
+	 */
+	public static function getIdForRevisionId($revisionId)
+	{
+		return (int) BackendModel::getContainer()->get('database')->getVar(
+			'SELECT i.id
+			 FROM blog_posts AS i
+			 WHERE i.revision_id = ?',
+			array((int) $revisionId)
+		);
+	}
+
+	/**
+	 * @param int $id
+	 * @return array
+	 */
+	public static function getImage($id)
+	{
+		$id = (int) $id;
+
+		$record = (array) BackendModel::getContainer()->get('database')->getRecord(
+			'SELECT i.* FROM blog_images AS i WHERE i.id = ?',
+			array($id)
+		);
+
+		return $record;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getImageSizes()
+	{
+		$imagesFolder = FRONTEND_FILES_PATH . '/blog/images';
+
+		// check if the categories-folder exists
+		if(!SpoonDirectory::exists($imagesFolder))
+		{
+			$defaultFolders = array('source', '64x64', '128x128', '666x406');
+
+			// loop defaults and create them
+			foreach($defaultFolders as $folder) SpoonDirectory::create($imagesFolder . '/' . $folder);
+		}
+
+		$listing = SpoonDirectory::getList($imagesFolder . '/', false, null, '/[0-9]+x[0-9]+/');
+
+		$return = array();
+		foreach($listing as $folder)
+		{
+			// split into chunks to determine the size
+			$chunks = explode('x', $folder);
+
+			// enough chunks?
+			if(count($chunks) == 2)
+			{
+				// add
+				$return[] = array('name' => $folder, 'width' => $chunks[0], 'height' => $chunks[1]);
+			}
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Get the latest comments for a given type
 	 *
 	 * @param string $status The status for the comments to retrieve.
@@ -564,6 +684,20 @@ class BackendBlogModel
 	public static function getMaximumId()
 	{
 		return (int) BackendModel::getContainer()->get('database')->getVar('SELECT MAX(id) FROM blog_posts LIMIT 1');
+	}
+
+	/**
+	 * @param int $postId
+	 * @return int
+	 */
+	public static function getMaxImageSequence($postId)
+	{
+		return (int) BackendModel::getContainer()->get('database')->getVar(
+			'SELECT MAX(i.sequence)
+			 FROM blog_images AS i
+			 WHERE i.post_id = ?',
+			array((int) $postId)
+		);
 	}
 
 	/**
@@ -729,6 +863,17 @@ class BackendBlogModel
 
 		// return the id
 		return $item['id'];
+	}
+
+	/**
+	 * Inserts an image into the database
+	 *
+	 * @param array $image The data to insert.
+	 * @return int
+	 */
+	public static function insertImage(array $image)
+	{
+		BackendModel::getContainer()->get('database')->insert('blog_images', $image);
 	}
 
 	/**
@@ -918,5 +1063,19 @@ class BackendBlogModel
 			// invalidate the cache for blog
 			foreach($languages as $language) BackendModel::invalidateFrontendCache('blog', $language);
 		}
+	}
+
+	/**
+	 * @param int $id
+	 * @param array $values
+	 * @return int	ID
+	 */
+	public static function updateImage($id, array $values)
+	{
+		$id = (int) $id;
+
+		BackendModel::getContainer()->get('database')->update('blog_images', $values, 'id = ?',	array($id));
+
+		return $id;
 	}
 }
