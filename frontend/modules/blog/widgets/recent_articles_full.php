@@ -36,8 +36,10 @@ class FrontendBlogWidgetRecentArticlesFull extends FrontendBaseWidget
 		// add RSS-feed
 		$this->header->addLink(array('rel' => 'alternate', 'type' => 'application/rss+xml', 'title' => FrontendModel::getModuleSetting('blog', 'rss_title_' . FRONTEND_LANGUAGE), 'href' => $rssLink), true);
 
+		$articles = FrontendBlogModel::getAll(FrontendModel::getModuleSetting('blog', 'recent_articles_full_num_items', 5));
+
 		// assign comments
-		$this->tpl->assign('widgetBlogRecentArticlesFull', FrontendBlogModel::getAll(FrontendModel::getModuleSetting('blog', 'recent_articles_full_num_items', 5)));
+		$this->tpl->assign('widgetBlogRecentArticlesFull', $articles);
 		$this->tpl->assign('widgetBlogRecentArticlesFullRssLink', $rssLink);
 	}
 }

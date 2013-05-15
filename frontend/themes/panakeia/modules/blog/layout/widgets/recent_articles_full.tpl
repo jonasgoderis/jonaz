@@ -5,11 +5,15 @@
 
 {option:widgetBlogRecentArticlesFull}
 	<section id="blogRecentArticlesFullWidget">
-
 		{iteration:widgetBlogRecentArticlesFull}
 		<article class="block summary">
 			<a href="{$widgetBlogRecentArticlesFull.full_url}" title="{$widgetBlogRecentArticlesFull.title}" class="summaryContent">
-				<header class="summaryContentText">
+				<header class="summaryContentText autoEllipsis">
+					<div style="padding-bottom: 10px;">
+						{option:widgetBlogRecentArticlesFull.image}
+							<img src="{$widgetBlogRecentArticlesFull.image_331x150}" alt="{$widgetBlogRecentArticlesFull.title}" />
+						{/option:widgetBlogRecentArticlesFull.image}
+					</div>
 					<h1 class="h2">{$widgetBlogRecentArticlesFull.title|ucfirst}</h1>
 					<p class="date"><!-- {$msgWrittenBy|ucfirst|sprintf:{$widgetBlogRecentArticlesFull.user_id|usersetting:'nickname'}} {$lblOn} -->
 						<time datetime="{$widgetBlogRecentArticlesFull.publish_on|date:'c':{$LANGUAGE}}">
@@ -18,7 +22,7 @@
 							<span class="year">{$widgetBlogRecentArticlesFull.publish_on|date:'Y':{$LANGUAGE}}</span>
 						</time>
 					</p>
-					{$widgetBlogRecentArticlesFull.introduction|substring:0:216|ucfirst} ...
+					{$widgetBlogRecentArticlesFull.introduction|ucfirst}
 				</header>
 			</a>
 

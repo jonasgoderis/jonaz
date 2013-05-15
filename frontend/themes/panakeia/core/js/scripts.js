@@ -45,6 +45,14 @@ $(document).ready(function() {
 		.hover(ShowShare)
 	;
 
+	// DotDotDot
+	// -----------------
+	$(window).load(function() {
+		$(".autoEllipsis").dotdotdot({
+			ellipsis	: ' ... ',
+			wrap			: 'word',
+			watch			: true
+		});
+	}).resize();
+
 });
-
-
