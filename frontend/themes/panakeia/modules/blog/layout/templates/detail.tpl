@@ -34,10 +34,22 @@
 		<meta itemprop="author" content="{$item.user_id|usersetting:'nickname'}">
 
 		{option:item.image}
-		<img src="{$FRONTEND_FILES_URL}/blog/images/source/{$item.image}" alt="{$item.image}" class="blogDetailImage">
+			<img src="{$item.image_source}" alt="{$item.image}" class="blogDetailImage">
 		{/option:item.image}
 
 		<div class="centered">
+			{option:item.images}
+				<div id="imageThumbs" style="text-align: center; width: 100%; margin-bottom: 20px;">
+					{option:item.image}
+						<img src="{$item.image_64x64}" data-source="{$item.image_source}" style="display: inline; margin: 5px; cursor: pointer;">
+					{/option:item.image}
+
+					{iteration:item.images}
+						<img src="{$item.images.image_64x64}" data-source="{$item.images.image_source}" style="display: inline; margin: 5px; cursor: pointer;"/>
+					{/iteration:item.images}
+				</div>
+			{/option:item.images}
+
 			<span class="plain">{$item.text}</span>
 			<ul class="shareButtons">
 					<li><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a></li>

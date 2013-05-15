@@ -46,6 +46,8 @@ class FrontendBlogModel implements FrontendTagsInterface
 			array('active', FRONTEND_LANGUAGE, 'N', FrontendModel::getUTCDate('Y-m-d H:i') . ':00', (string) $URL)
 		);
 
+		if(empty($return)) return $return;
+
 		// unserialize
 		if(isset($return['meta_data'])) $return['meta_data'] = @unserialize($return['meta_data']);
 
@@ -56,6 +58,8 @@ class FrontendBlogModel implements FrontendTagsInterface
 
 			foreach($folders as $folder) $return['image_' . $folder['dirname']] = $folder['url'] . '/' . $return['image'];
 		}
+
+		$return['images'] = self::getImages($return['id']);
 
 		// return
 		return $return;
@@ -530,6 +534,44 @@ class FrontendBlogModel implements FrontendTagsInterface
 
 		// return the item
 		return self::get($itemURL);
+	}
+
+	/**
+	 * Get images for a blog
+	 *
+	 * @param  int $blogId
+	 *
+	 * @return array
+	 */
+	public static function getImages($blogId)
+	{
+		// redefine
+		$blogId = (int) $blogId;
+
+		// get db
+		$db = FrontendModel::getContainer()->get('database');
+
+		$images = (array) $db->getRecords(
+			'SELECT bi.title, bi.image
+			 FROM blog_images AS bi
+			 WHERE bi.post_id = ?
+			 ORDER BY bi.sequence',
+			array($blogId)
+		);
+
+		if(!empty($images))
+		{
+			$folders = FrontendModel::getThumbnailFolders(FRONTEND_FILES_PATH . '/blog/images', true);
+			foreach ($images as &$image)
+			{
+				foreach($folders as $folder)
+				{
+					$image['image_' . $folder['dirname']] = $folder['url'] . '/' . $image['image'];
+				}
+			}
+		}
+
+		return $images;
 	}
 
 	/**
