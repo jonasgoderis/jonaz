@@ -15,12 +15,12 @@
 		{iteration:items}
 		<article class="block summary">
 			<a href="{$items.full_url}" title="{$items.title}" class="summaryContent">
-				<div style="padding-bottom: 10px;">
-					{option:items.image}
-						<img src="{$items.image_331x150}" alt="{$items.title}" />
-					{/option:items.image}
-				</div>
 				<header class="summaryContentText autoEllipsis">
+					<div style="padding-bottom: 10px;">
+						{option:items.image}
+							<img src="{$items.image_331x150}" alt="{$items.title}" />
+						{/option:items.image}
+					</div>
 					<h1 class="h2">{$items.title|ucfirst}</h1>
 					<p class="date">
 						<time datetime="{$items.publish_on|date:'c':{$LANGUAGE}}">

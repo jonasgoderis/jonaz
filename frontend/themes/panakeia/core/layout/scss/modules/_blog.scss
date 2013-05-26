@@ -46,7 +46,7 @@
 .autoEllipsis {
   max-height: auto;
   @include breakpoint(lap) {
-    height: 88em;
+    height: 25em;
     margin-bottom: 3em;
   }
 }
